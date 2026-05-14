@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>P-TECH Letter Posters</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Courier New', monospace; background: #000; }
+
+  .page {
+    width: 8.5in;
+    height: 11in;
+    page-break-after: always;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  .poster {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* Darken top + bottom so white text/letter stays crisp,
+     but keep the middle of the image visible behind the letter. */
+  .poster::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 22%, rgba(0,0,0,0.15) 78%, rgba(0,0,0,0.7) 100%);
+    pointer-events: none;
+  }
+  .poster.monitor-wall::before {
+    background:
+      linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.35) 25%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0.85) 100%);
+  }
+
+  /* Theatre-light chromatic offset on white text */
+  .chrom {
+    color: #fff;
+    text-shadow:
+      -5px 0 0 rgba(255, 0, 60, 0.95),
+       5px 0 0 rgba(0, 217, 255, 0.95),
+       0 0 30px rgba(255,255,255,0.35);
+    letter-spacing: 2px;
+  }
+  .chrom.tight {
+    text-shadow:
+      -3px 0 0 rgba(255, 0, 60, 0.95),
+       3px 0 0 rgba(0, 217, 255, 0.95),
+       0 0 18px rgba(255,255,255,0.3);
+  }
+  /* Heavier offset for the giant centerpiece letter */
+  .chrom.mega {
+    text-shadow:
+      -10px 0 0 rgba(255, 0, 60, 0.92),
+       10px 0 0 rgba(0, 217, 255, 0.92),
+       0 0 60px rgba(255,255,255,0.35),
+       0 0 120px rgba(0,0,0,0.55);
+  }
+
+  .top-block {
+    position: absolute;
+    top: 0.55in;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 5;
+  }
+  .bottom-block {
+    position: absolute;
+    bottom: 0.55in;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 5;
+  }
+
+  /* P-TECH progress strip across the top — current letter is highlighted,
+     so the six posters together read as a sequence. */
+  .ptech-strip {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 22pt;
+    font-weight: 900;
+    letter-spacing: 14px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 6px;
+  }
+  .ptech-strip .active {
+    color: #fff;
+    text-shadow:
+      -3px 0 0 rgba(255, 0, 60, 0.95),
+       3px 0 0 rgba(0, 217, 255, 0.95);
+  }
+
+  .eyebrow {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 13pt;
+    font-weight: 900;
+    letter-spacing: 8px;
+    color: #fff;
+    opacity: 0.85;
+  }
+
+  /* The single gigantic centerpiece letter */
+  .mega-letter {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial Black', 'Impact', sans-serif;
+    font-size: 520pt;
+    font-weight: 900;
+    line-height: 1;
+    z-index: 3;
+    user-select: none;
+  }
+  /* The hyphen needs different sizing — a 520pt "-" looks tiny.
+     Bump it up and pin it visually centered. */
+  .mega-letter.dash { font-size: 720pt; letter-spacing: 0; }
+
+  .cta {
+    font-family: 'Arial Black', 'Impact', sans-serif;
+    font-size: 56pt;
+    font-weight: 900;
+    line-height: 0.9;
+  }
+  .cta.smaller { font-size: 44pt; }
+
+  .sub {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 12pt;
+    font-weight: 700;
+    letter-spacing: 6px;
+    color: #fff;
+    opacity: 0.85;
+    margin-top: 10px;
+  }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     POSTER 1 — P · Pathways
+     Cyberpunk Ada — the first programmer, the original pathway
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="poster" style="background-image: url('images/cyberpunk-ada.png');"></div>
+
+  <div class="top-block">
+    <div class="ptech-strip"><span class="active">P</span><span>-</span><span>T</span><span>E</span><span>C</span><span>H</span></div>
+    <div class="eyebrow">// PATHWAYS</div>
+  </div>
+
+  <div class="mega-letter chrom mega">P</div>
+
+  <div class="bottom-block">
+    <div class="cta chrom">PATHWAYS.</div>
+    <div class="sub">CHAPIN HIGH SCHOOL<br>COMPUTER SCIENCE · P-TECH</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     POSTER 2 — "−" · Connector
+     Monitor-wall silhouette: the link between school and career
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="poster monitor-wall" style="background-image: url('images/mjstem_Cyberpunk_white-hat_hacker_silhouetted_against_a_massi_08443f75-3c1e-4324-af88-07d44df0af79_2.png');"></div>
+
+  <div class="top-block">
+    <div class="ptech-strip"><span>P</span><span class="active">-</span><span>T</span><span>E</span><span>C</span><span>H</span></div>
+    <div class="eyebrow">// LINK ESTABLISHED</div>
+  </div>
+
+  <div class="mega-letter dash chrom mega">−</div>
+
+  <div class="bottom-block">
+    <div class="cta chrom">CONNECTED.</div>
+    <div class="sub">CHAPIN HIGH SCHOOL<br>COMPUTER SCIENCE · P-TECH</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     POSTER 3 — T · Technology
+     Bearded gamer/coder with futuristic controller
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="poster" style="background-image: url('images/mjstem_Cyberpunk_gamer_turned_coder_holding_a_futuristic_game_e8eaff57-7cae-49d1-985f-0a1fd7273f3b_2.png');"></div>
+
+  <div class="top-block">
+    <div class="ptech-strip"><span>P</span><span>-</span><span class="active">T</span><span>E</span><span>C</span><span>H</span></div>
+    <div class="eyebrow">// TECHNOLOGY</div>
+  </div>
+
+  <div class="mega-letter chrom mega">T</div>
+
+  <div class="bottom-block">
+    <div class="cta chrom">TECHNOLOGY.</div>
+    <div class="sub">CHAPIN HIGH SCHOOL<br>COMPUTER SCIENCE · P-TECH</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     POSTER 4 — E · Early (college)
+     Latina creator building worlds — early start, big builds
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="poster" style="background-image: url('images/mjstem_Confident_young_Latina_creator_warm_brown_skin_long_da_d593f914-3126-4b63-9830-e44363c1023a_0.png');"></div>
+
+  <div class="top-block">
+    <div class="ptech-strip"><span>P</span><span>-</span><span>T</span><span class="active">E</span><span>C</span><span>H</span></div>
+    <div class="eyebrow">// EARLY</div>
+  </div>
+
+  <div class="mega-letter chrom mega">E</div>
+
+  <div class="bottom-block">
+    <div class="cta chrom">EARLY.</div>
+    <div class="sub">CHAPIN HIGH SCHOOL<br>COMPUTER SCIENCE · P-TECH</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     POSTER 5 — C · College
+     South Asian operative with visor — focus, mastery
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="poster" style="background-image: url('images/mjstem_Cyberpunk_white-hat_hacker_operative_young_South_Asian_2a2a8773-59bd-4d55-8196-5ee295d68462_2.png');"></div>
+
+  <div class="top-block">
+    <div class="ptech-strip"><span>P</span><span>-</span><span>T</span><span>E</span><span class="active">C</span><span>H</span></div>
+    <div class="eyebrow">// COLLEGE</div>
+  </div>
+
+  <div class="mega-letter chrom mega">C</div>
+
+  <div class="bottom-block">
+    <div class="cta chrom">COLLEGE.</div>
+    <div class="sub">CHAPIN HIGH SCHOOL<br>COMPUTER SCIENCE · P-TECH</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     POSTER 6 — H · High School
+     African female white-hat — clearance granted, here & now
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="poster" style="background-image: url('images/mjstem_Cyberpunk_white-hat_hacker_operative_African_female_ho_33e4b529-5431-4274-acdb-ccc9cbe3ab84_2.png');"></div>
+
+  <div class="top-block">
+    <div class="ptech-strip"><span>P</span><span>-</span><span>T</span><span>E</span><span>C</span><span class="active">H</span></div>
+    <div class="eyebrow">// HIGH SCHOOL</div>
+  </div>
+
+  <div class="mega-letter chrom mega">H</div>
+
+  <div class="bottom-block">
+    <div class="cta chrom smaller">HIGH SCHOOL.</div>
+    <div class="sub">CHAPIN HIGH SCHOOL<br>COMPUTER SCIENCE · P-TECH</div>
+  </div>
+</div>
+
+</body>
+</html>
