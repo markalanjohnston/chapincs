@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chapin HS Computer Science — Flyer</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    background: #fff;
+    color: #1a1a1a;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* US Letter, portrait, single page */
+  .flyer {
+    width: 8.5in;
+    height: 11in;
+    padding: 0.5in 0.55in;
+    display: flex;
+    flex-direction: column;
+    page-break-after: auto;
+  }
+
+  /* Top bar */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #d6006c;
+    margin-bottom: 28px;
+    font-size: 10.5pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .topbar .right { color: #d6006c; }
+
+  /* Hero block: headline left, QR right */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+  .hero h1 {
+    font-size: 44pt;
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: -1.5px;
+  }
+  .hero h1 .accent { color: #d6006c; }
+  .hero .lead {
+    font-size: 13pt;
+    color: #444;
+    margin-top: 14px;
+    max-width: 4.2in;
+    line-height: 1.45;
+  }
+
+  .qr-block {
+    text-align: center;
+  }
+  .qr-block img {
+    width: 1.9in;
+    height: 1.9in;
+    display: block;
+    border: 3px solid #1a1a1a;
+    border-radius: 6px;
+  }
+  .qr-block .url {
+    margin-top: 8px;
+    font-size: 12pt;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #1a1a1a;
+  }
+  .qr-block .url .dot { color: #d6006c; }
+  .qr-block .scan {
+    font-size: 9pt;
+    letter-spacing: 2.5px;
+    color: #666;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* Section headers */
+  .section {
+    margin-bottom: 22px;
+  }
+  .section h2 {
+    font-size: 11pt;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #d6006c;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1.5px solid #e5e5e5;
+  }
+
+  /* Pathway */
+  .pathway-row {
+    display: grid;
+    grid-template-columns: 1.4in 1fr auto;
+    gap: 12px;
+    padding: 7px 0;
+    align-items: baseline;
+    font-size: 11pt;
+  }
+  .pathway-row + .pathway-row { border-top: 1px solid #f0f0f0; }
+  .pathway-row .grade {
+    font-weight: 900;
+    color: #1a1a1a;
+    letter-spacing: 1px;
+    font-size: 10.5pt;
+  }
+  .pathway-row .name {
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  .pathway-row .meta {
+    font-size: 9pt;
+    color: #777;
+    letter-spacing: 0.5px;
+  }
+
+  /* Why list */
+  .why {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+  }
+  .why .item {
+    display: flex;
+    gap: 10px;
+    font-size: 10.5pt;
+    line-height: 1.4;
+    align-items: flex-start;
+    padding: 3px 0;
+  }
+  .why .item::before {
+    content: '▸';
+    color: #d6006c;
+    font-weight: 900;
+    margin-top: -1px;
+    flex-shrink: 0;
+  }
+  .why .item strong { color: #1a1a1a; }
+  .why .item span { color: #555; display: block; font-size: 9.5pt; margin-top: 1px; }
+
+  /* P-TECH block */
+  .ptech {
+    background: #fff5fa;
+    border-left: 4px solid #d6006c;
+    padding: 14px 18px;
+    border-radius: 4px;
+    font-size: 10.5pt;
+    line-height: 1.5;
+    color: #2a2a2a;
+  }
+  .ptech strong { color: #d6006c; }
+  .ptech .label {
+    display: block;
+    font-size: 9pt;
+    letter-spacing: 2.5px;
+    font-weight: 900;
+    color: #d6006c;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  /* Footer / contact */
+  .footer {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 3px solid #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10pt;
+  }
+  .footer .contact strong {
+    display: block;
+    font-size: 12pt;
+    font-weight: 900;
+    color: #1a1a1a;
+    margin-bottom: 2px;
+  }
+  .footer .contact .email {
+    color: #444;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.5px;
+  }
+  .footer .site {
+    font-size: 11pt;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    color: #d6006c;
+  }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .flyer { padding: 0.5in; }
+  }
+</style>
+</head>
+<body>
+
+<div class="flyer">
+
+  <!-- top bar -->
+  <div class="topbar">
+    <span>Chapin High School · Computer Science</span>
+    <span class="right">2026–2027 Enrollment</span>
+  </div>
+
+  <!-- hero: headline + QR -->
+  <div class="hero">
+    <div>
+      <h1>Learn to code.<br>Earn <span class="accent">college credit.</span><br>Build the future.</h1>
+      <p class="lead">Three courses. One pathway. No prior experience required. Open to every Chapin student.</p>
+    </div>
+    <div class="qr-block">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://chapincs.com&margin=5" alt="QR code for ChapinCS.com">
+      <div class="url">ChapinCS<span class="dot">.</span>com</div>
+      <div class="scan">SCAN OR VISIT</div>
+    </div>
+  </div>
+
+  <!-- pathway -->
+  <div class="section">
+    <h2>The Pathway</h2>
+    <div class="pathway-row">
+      <span class="grade">9TH GRADE</span>
+      <span class="name">Fundamentals of Computer Science</span>
+      <span class="meta">TEKS · 1 HS credit · no prereqs</span>
+    </div>
+    <div class="pathway-row">
+      <span class="grade">10–11TH</span>
+      <span class="name">AP Computer Science Principles</span>
+      <span class="meta">College-level · AP exam · 3+ college credits*</span>
+    </div>
+    <div class="pathway-row">
+      <span class="grade">11–12TH</span>
+      <span class="name">AP Computer Science A</span>
+      <span class="meta">Java · 2 HS credits · 3–4 college credits*</span>
+    </div>
+  </div>
+
+  <!-- why -->
+  <div class="section">
+    <h2>Why It Matters</h2>
+    <div class="why">
+      <div class="item"><div><strong>Earn college credit in high school</strong><span>Up to 6+ college credit hours possible through AP exams.</span></div></div>
+      <div class="item"><div><strong>Foundation for in-demand careers</strong><span>Engineering, app development, cybersecurity, robotics, AI, healthcare tech.</span></div></div>
+      <div class="item"><div><strong>No prior experience required</strong><span>Most students start with zero coding knowledge.</span></div></div>
+      <div class="item"><div><strong>Real professional skills</strong><span>Java, problem-solving, debugging, software design — what employers want.</span></div></div>
+    </div>
+  </div>
+
+  <!-- P-TECH -->
+  <div class="section">
+    <div class="ptech">
+      <span class="label">Ask About P-TECH</span>
+      Our <strong>P-TECH program</strong> combines high school with early college courses and industry partnerships — students can graduate with high school credit, college credit, and real workplace experience. <strong>P-TECH students receive priority enrollment</strong> in CS courses. Open to all incoming 9th graders — ask Mr. Johnston whether P-TECH fits your goals.
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="footer">
+    <div class="contact">
+      <strong>Questions? Mr. Johnston</strong>
+      <span class="email">majohnst@episd.org</span>
+    </div>
+    <div class="site">CHAPINCS.COM</div>
+  </div>
+
+</div>
+
+</body>
+</html>
