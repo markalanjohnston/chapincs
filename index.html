@@ -77,6 +77,13 @@
   nav.topbar .links a.active {
     color: #00d9ff;
   }
+  nav.topbar .short { display: none; }
+  @media (max-width: 600px) {
+    nav.topbar { padding: 14px 18px; }
+    nav.topbar .links { gap: 18px; }
+    nav.topbar .full { display: none; }
+    nav.topbar .short { display: inline; }
+  }
 
   /* ─────────────────────────────────────────────
      HERO
@@ -517,11 +524,14 @@
 
 <!-- ════════ STICKY NAV ════════ -->
 <nav class="topbar" id="topbar">
-  <div class="brand mono">CHAPIN HIGH SCHOOL · CS</div>
+  <div class="brand mono">
+    <span class="full">CHAPIN HIGH SCHOOL · CS</span>
+    <span class="short">CHS</span>
+  </div>
   <div class="links">
-    <a href="#focs">FUNDAMENTALS</a>
-    <a href="#csp">AP CSP</a>
-    <a href="#csa">AP CSA</a>
+    <a href="#focs"><span class="full">FUNDAMENTALS</span><span class="short">FCS</span></a>
+    <a href="#csp"><span class="full">AP CSP</span><span class="short">CSP</span></a>
+    <a href="#csa"><span class="full">AP CSA</span><span class="short">CSA</span></a>
     <a href="#join">JOIN</a>
   </div>
 </nav>
