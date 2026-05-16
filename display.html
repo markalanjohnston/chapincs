@@ -698,11 +698,12 @@
     dotEls.forEach((d, i) => d.classList.toggle('active', i === index));
   }
 
-  // Calculate how long each slide should hold based on code length + base time
+  // Duration the progress bar fills across — matches the time from when the bar starts
+  // (right after the 2s intro stagger) until the slide ends: typing + 4500ms hold.
   function slideDuration(slide) {
     const codeLen = slide.code.reduce((n, s) => n + s.t.length, 0);
     const typeMs = codeLen * 28;
-    return 4500 + typeMs + 5500; // intro buffer + typing + hold
+    return typeMs + 4500;
   }
 
   async function runSlide(slide, index) {
@@ -746,11 +747,6 @@
     els.progressBar.style.transform = 'scaleX(1)';
 
     await typingPromise;
-
-    // Hold while remaining time elapses
-    const elapsed = 400 + 350 + 550 + 450 + 250 + (typingPromise ? 0 : 0);
-    // Simpler: just wait until total duration has been spent since runSlide started.
-    // We'll use the progress bar timing as the gate by waiting an additional 4500ms past type completion.
     await sleep(4500);
 
     // Exit
