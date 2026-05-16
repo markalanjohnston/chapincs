@@ -12,3 +12,6 @@
 
 # Logs
 *.log
+
+# Full-size source assets (WebP versions in images/ are what the site uses)
+images-original/
