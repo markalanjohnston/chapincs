@@ -698,12 +698,14 @@
     dotEls.forEach((d, i) => d.classList.toggle('active', i === index));
   }
 
-  // Duration the progress bar fills across — matches the time from when the bar starts
-  // (right after the 2s intro stagger) until the slide ends: typing + 4500ms hold.
+  // How long a slide is visible end-to-end: intro stagger (2000ms) + typing + 4500ms hold.
+  // The progress bar fills across this whole window, then drains during the 700ms exit fade.
+  const INTRO_MS = 2000;
+  const HOLD_MS = 4500;
+  const EXIT_MS = 700;
   function slideDuration(slide) {
     const codeLen = slide.code.reduce((n, s) => n + s.t.length, 0);
-    const typeMs = codeLen * 28;
-    return typeMs + 4500;
+    return INTRO_MS + codeLen * 28 + HOLD_MS;
   }
 
   async function runSlide(slide, index) {
@@ -724,6 +726,15 @@
     els.sub.textContent = slide.sub;
     els.terminal.innerHTML = '';
 
+    // Kick off the progress bar across the whole visible slide (intro + typing + hold).
+    // GPU-composited transform — stays smooth under main-thread load.
+    const dur = slideDuration(slide);
+    els.progressBar.style.transition = 'none';
+    els.progressBar.style.transform = 'scaleX(0)';
+    void els.progressBar.offsetWidth;
+    els.progressBar.style.transition = `transform ${dur}ms linear`;
+    els.progressBar.style.transform = 'scaleX(1)';
+
     // Stagger reveal: eyebrow → headline → sub → terminal
     await sleep(400);
     els.eyebrow.classList.add('in');
@@ -735,27 +746,22 @@
     els.terminal.classList.add('in');
 
     await sleep(250);
-    // Start the typewriter
     const typingPromise = typeTerminal(slide.code);
 
-    // Start the progress bar (GPU-composited transform — stays smooth under main-thread load)
-    const dur = slideDuration(slide);
-    els.progressBar.style.transition = 'none';
-    els.progressBar.style.transform = 'scaleX(0)';
-    void els.progressBar.offsetWidth;
-    els.progressBar.style.transition = `transform ${dur}ms linear`;
-    els.progressBar.style.transform = 'scaleX(1)';
-
     await typingPromise;
-    await sleep(4500);
+    await sleep(HOLD_MS);
 
-    // Exit
+    // Drain the bar during the exit fade so it doesn't freeze at 100%.
+    els.progressBar.style.transition = `transform ${EXIT_MS}ms ease-in`;
+    els.progressBar.style.transform = 'scaleX(0)';
+
+    // Exit text
     els.content.classList.add('exiting');
     els.eyebrow.classList.remove('in');
     els.headline.classList.remove('in');
     els.sub.classList.remove('in');
     els.terminal.classList.remove('in');
-    await sleep(700);
+    await sleep(EXIT_MS);
     els.content.classList.remove('exiting');
   }
 
