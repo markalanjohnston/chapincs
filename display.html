@@ -825,11 +825,19 @@
     els.content.classList.remove('exiting');
   }
 
+  // Reload the page after this many minutes so the kiosk picks up any
+  // content/code changes without anyone touching the machine. The reload
+  // happens between slides, never mid-slide, so it's invisible to viewers.
+  const RELOAD_AFTER_MIN = 30;
+  const reloadAt = Date.now() + RELOAD_AFTER_MIN * 60 * 1000;
+
   async function loop() {
     let i = 0;
     while (true) {
       await runSlide(slides[i], i);
       i = (i + 1) % slides.length;
+      // Only reload at the start of a fresh cycle, after the time has elapsed.
+      if (i === 0 && Date.now() >= reloadAt) location.reload();
     }
   }
 
