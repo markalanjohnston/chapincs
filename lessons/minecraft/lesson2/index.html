@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 2 — Loops &amp; Patterns · Minecraft · Chapin CS</title>
+<link rel="stylesheet" href="../../lesson.css">
+</head>
+<body>
+
+<div class="crumb mono">
+  <a href="../../../">Chapin CS</a>
+  <span class="sep">/</span>
+  <a href="../../">Lessons</a>
+  <span class="sep">/</span>
+  <a href="../">Minecraft</a>
+  <span class="sep">/</span>
+  <span>Lesson 2</span>
+</div>
+
+<div class="page">
+  <div class="card">
+
+    <a href="../" class="back">← Back to Minecraft Lessons</a>
+
+    <div class="lesson-head">
+      <div class="eyebrow">// LESSON_2 · SELF-PACED</div>
+      <h1 class="chrom">Loops, Repetition, and Agent Patterns</h1>
+      <p class="subtitle">Make the Agent repeat actions automatically with for loops.</p>
+    </div>
+
+    <div class="eq">
+      <div class="label">// ESSENTIAL_QUESTION</div>
+      <p>Why do programmers use loops instead of writing the same instruction over and over?</p>
+    </div>
+
+    <div class="goals">
+      <h2>By the end of this lesson, I will...</h2>
+      <ul>
+        <li>Explain why loops make programs shorter and easier to change.</li>
+        <li>Use a <strong>for loop</strong> to repeat Agent movement.</li>
+        <li>Use a loop to make the Agent place or destroy blocks repeatedly.</li>
+        <li>Predict how many times a repeated action will happen.</li>
+        <li>Modify loop values to change the size of a path, wall, or pattern.</li>
+        <li>Debug a loop when the Agent repeats too many or too few times.</li>
+        <li>Create an original Agent build that uses repetition.</li>
+      </ul>
+    </div>
+
+    <div class="setup-banner">
+      <span class="badge">Every Lesson</span>
+      <h3>Start here first — every single time</h3>
+      <p>Every Minecraft lesson begins with a brand-new world. <strong>Do not skip this.</strong> Open Lesson 0, follow the setup steps, then come back here and continue with Step 1.</p>
+      <a href="../lesson0/" class="cta">Open Lesson 0 — World Setup →</a>
+    </div>
+
+    <!-- STEP 1: Warm-up -->
+    <div class="step">
+      <h2><span class="tag warm">STEP 1</span> Warm-up: The Case for Loops</h2>
+      <p>Imagine you wanted to walk down a hallway and lay down a tile every step. Imagine the hallway is <strong>20 tiles long</strong>. Write out (on paper or just in your head) the instructions you would give the Agent.</p>
+
+      <details class="predict">
+        <summary>Think about it first — what is annoying about those instructions?</summary>
+        <div class="answer">
+          <p>You probably wrote <em>move, place, move, place...</em> 20 times in a row. That is <strong>20 identical pairs of lines</strong> — 40 lines total. If you decide tomorrow that the hallway should be 30 tiles long, you have to add 10 more pairs. If it should be 100 tiles long, good luck.</p>
+          <p><strong>The big idea:</strong> Repeating yourself in code is slow to write, hard to change, and easy to mess up. A <strong>loop</strong> lets you say <em>"do this thing 20 times"</em> in one line. Change the 20 to 100 and you're done.</p>
+        </div>
+      </details>
+
+      <h3>Today's Vocabulary</h3>
+      <div class="vocab">
+        <div class="item"><strong>Loop</strong><span>A programming structure that repeats instructions.</span></div>
+        <div class="item"><strong>Iteration</strong><span>One repetition of a loop.</span></div>
+        <div class="item"><strong>For Loop</strong><span>A loop that repeats a specific number of times.</span></div>
+        <div class="item"><strong>Nested Loop</strong><span>A loop inside another loop.</span></div>
+        <div class="item"><strong>Efficiency</strong><span>Writing code without unnecessary repetition.</span></div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Open MakeCode -->
+    <div class="step">
+      <h2><span class="tag">STEP 2</span> Open MakeCode (Python Only)</h2>
+      <p>You should already be in your fresh flat world from <a href="../lesson0/">Lesson 0</a>. If not, go back and complete Lesson 0 first.</p>
+      <ol>
+        <li>In the Minecraft world, press <kbd>C</kbd> on your keyboard to open the <strong>Code Builder</strong>.</li>
+        <li>In the Code Builder window, choose <strong>MakeCode</strong>.</li>
+        <li>Click <strong>New Project</strong> and give it a name — <code class="inline">Lesson 2 - Loops</code> works.</li>
+        <li>Click <strong>Code options</strong>, then select <strong>Python Only</strong>.</li>
+        <li>Click <strong>Create</strong>. The project will open straight into the Python editor.</li>
+      </ol>
+    </div>
+
+    <!-- STEP 3: Repeat vs loop -->
+    <div class="step">
+      <h2><span class="tag">STEP 3</span> The Same Program, Two Ways</h2>
+      <p>Here is a program that makes the Agent walk forward 5 blocks, placing stone underneath each step — written the <em>repetitive</em> way and the <em>loop</em> way. Look at both. They do the exact same thing.</p>
+
+      <div class="compare">
+        <div class="col bad">
+          <h4>✗ Without a loop — tedious</h4>
+<pre>def on_chat():
+    agent.set_item(STONE, 64, 1)
+    agent.move(FORWARD, 1)
+    agent.destroy(DOWN)
+    agent.place(DOWN)
+    agent.move(FORWARD, 1)
+    agent.destroy(DOWN)
+    agent.place(DOWN)
+    agent.move(FORWARD, 1)
+    agent.destroy(DOWN)
+    agent.place(DOWN)
+    agent.move(FORWARD, 1)
+    agent.destroy(DOWN)
+    agent.place(DOWN)
+    agent.move(FORWARD, 1)
+    agent.destroy(DOWN)
+    agent.place(DOWN)
+player.on_chat("long", on_chat)</pre>
+        </div>
+        <div class="col good">
+          <h4>✓ With a loop — clean</h4>
+<pre>def on_chat():
+    agent.set_item(STONE, 64, 1)
+    for i in range(5):
+        agent.move(FORWARD, 1)
+        agent.destroy(DOWN)
+        agent.place(DOWN)
+player.on_chat("short", on_chat)</pre>
+        </div>
+      </div>
+
+      <div class="callout key">
+        <strong>Read the loop in English:</strong> <code class="inline">for i in range(5):</code> means "do the indented stuff below me <strong>5 times</strong>." The variable <code class="inline">i</code> is a counter that goes 0, 1, 2, 3, 4 — one value per iteration. You don't have to use <code class="inline">i</code> for anything yet, but it has to be there.
+      </div>
+    </div>
+
+    <!-- STEP 4: Run -->
+    <div class="step">
+      <h2><span class="tag">STEP 4</span> Run Your First Loop</h2>
+      <p>Delete anything in your MakeCode editor and paste the loop version below. Save and try it.</p>
+
+      <div class="code-wrap">
+        <button class="copy-btn" data-target="starterLoop">Copy</button>
+<pre class="code-block" id="starterLoop">def on_chat():
+    agent.set_item(STONE, 64, 1)
+    for i in range(5):
+        agent.move(FORWARD, 1)
+        agent.destroy(DOWN)
+        agent.place(DOWN)
+player.on_chat("path", on_chat)</pre>
+      </div>
+
+      <h3>What this program says</h3>
+      <ul class="tight">
+        <li><code class="inline">agent.set_item(STONE, 64, 1)</code> — loads <strong>64 stone</strong> (a full stack) in inventory slot 1, so the Agent never runs out.</li>
+        <li><code class="inline">for i in range(5):</code> — repeat the indented block 5 times.</li>
+        <li><code class="inline">agent.move(FORWARD, 1)</code> — move forward one block.</li>
+        <li><code class="inline">agent.destroy(DOWN)</code> — clear the ground under the Agent.</li>
+        <li><code class="inline">agent.place(DOWN)</code> — drop one stone in that empty spot.</li>
+      </ul>
+
+      <details class="predict">
+        <summary>Predict before you run — how many stone blocks will appear in the world?</summary>
+        <div class="answer">
+          <p>The loop runs 5 times, and each iteration places exactly one stone — so you'll see a line of <strong>5 stone blocks</strong> behind the Agent.</p>
+        </div>
+      </details>
+
+      <h3>Run it</h3>
+      <ol>
+        <li>Switch to Minecraft.</li>
+        <li>Open chat (<kbd>T</kbd>), type <code class="inline">path</code>, press Enter.</li>
+        <li>Count the stone blocks. Did you get 5?</li>
+      </ol>
+    </div>
+
+    <!-- STEP 5: Modify -->
+    <div class="step">
+      <h2><span class="tag">STEP 5</span> Change the Number, Change the Result</h2>
+      <p>This is the whole point of loops: you change <em>one</em> number to change the size of the result. Try at least <strong>two</strong> of the modifications below. Run after each change so you can see the difference.</p>
+
+      <h3>Modifications</h3>
+      <ol>
+        <li>Change <code class="inline">range(5)</code> to <code class="inline">range(15)</code>. Run the program. Did you get 15 blocks?</li>
+        <li>Change <code class="inline">range(15)</code> back to a smaller number, like <code class="inline">range(3)</code>.</li>
+        <li>Change <code class="inline">agent.move(FORWARD, 1)</code> to <code class="inline">agent.move(FORWARD, 2)</code>. What happens to the spacing of the stone blocks? <em>(Hint: this is a common bug.)</em></li>
+        <li>Add an <code class="inline">agent.turn(RIGHT_TURN)</code> call <em>after</em> the place line but still inside the loop. What pattern does that create?</li>
+      </ol>
+
+      <div class="callout tip">
+        <strong>One thing at a time:</strong> Change one value, save, run, look at the result, then change the next thing. If your Agent does something unexpected, undo your last change and try again.
+      </div>
+    </div>
+
+    <!-- STEP 6: Debugging -->
+    <div class="step">
+      <h2><span class="tag">STEP 6</span> Debugging: Indentation Matters</h2>
+      <p>Here is a program a student wrote. They wanted the Agent to walk 10 blocks <em>and</em> leave a stone trail behind every step. But when they ran it, only <strong>one</strong> stone block appeared at the end of the path. Read the code carefully.</p>
+
+      <div class="code-wrap">
+        <button class="copy-btn" data-target="brokenLoop">Copy</button>
+<pre class="code-block" id="brokenLoop">def on_chat():
+    agent.set_item(STONE, 64, 1)
+    for i in range(10):
+        agent.move(FORWARD, 1)
+    agent.destroy(DOWN)
+    agent.place(DOWN)
+player.on_chat("oops", on_chat)</pre>
+      </div>
+
+      <details class="predict">
+        <summary>Predict: why does only one block appear instead of 10?</summary>
+        <div class="answer">
+          <p>The <code class="inline">destroy</code> and <code class="inline">place</code> lines are <strong>not indented</strong> the same as <code class="inline">agent.move</code>. That means they are <em>outside</em> the loop — they only run <strong>once</strong>, after the Agent has finished walking all 10 blocks.</p>
+          <p><strong>Fix:</strong> indent <code class="inline">destroy</code> and <code class="inline">place</code> so they line up with <code class="inline">agent.move</code>. That puts them <em>inside</em> the loop, so they run every iteration.</p>
+        </div>
+      </details>
+
+      <p>Try the broken version first to confirm only one block appears. Then try the fixed version below:</p>
+
+      <div class="code-wrap">
+        <button class="copy-btn" data-target="fixedLoop">Copy</button>
+<pre class="code-block" id="fixedLoop">def on_chat():
+    agent.set_item(STONE, 64, 1)
+    for i in range(10):
+        agent.move(FORWARD, 1)
+        agent.destroy(DOWN)
+        agent.place(DOWN)
+player.on_chat("oops", on_chat)</pre>
+      </div>
+
+      <div class="callout key">
+        <strong>In Python, indentation is the law.</strong> Lines indented the same amount are a group that belongs together. Different indentation = different group. This is how Python knows what is "inside the loop" and what is not. MakeCode does this automatically when you drag blocks, but when you type code, <em>you</em> control the indentation.
+      </div>
+    </div>
+
+    <!-- STEP 7: Nested loops -->
+    <div class="step">
+      <h2><span class="tag">STEP 7</span> Loops Inside Loops (Nested Loops)</h2>
+      <p>You can put a loop <em>inside</em> another loop. The inside loop finishes completely <strong>before</strong> the outside loop moves on to its next iteration. This is exactly what you need to draw a square: <em>walk one side, turn; walk another side, turn; ...repeat 4 times.</em></p>
+
+      <div class="code-wrap">
+        <button class="copy-btn" data-target="nestedLoop">Copy</button>
+<pre class="code-block" id="nestedLoop">def on_chat():
+    agent.set_item(STONE, 64, 1)
+    for side in range(4):
+        for step in range(5):
+            agent.move(FORWARD, 1)
+            agent.destroy(DOWN)
+            agent.place(DOWN)
+        agent.turn(LEFT_TURN)
+player.on_chat("square", on_chat)</pre>
+      </div>
+
+      <h3>How to read this nested loop</h3>
+      <ul class="tight">
+        <li>The <strong>outer</strong> loop (<code class="inline">for side in range(4):</code>) repeats <strong>4 times</strong> — one per side of the square.</li>
+        <li>The <strong>inner</strong> loop (<code class="inline">for step in range(5):</code>) repeats <strong>5 times</strong> — one stone per step along that side.</li>
+        <li>Total stones placed: <strong>4 × 5 = 20</strong>.</li>
+        <li>After the inner loop finishes one side, <code class="inline">agent.turn(LEFT_TURN)</code> rotates the Agent for the next side.</li>
+      </ul>
+
+      <details class="predict">
+        <summary>Predict — if you change <code>range(5)</code> to <code>range(7)</code>, what changes? What if you change <code>range(4)</code> to <code>range(3)</code>?</summary>
+        <div class="answer">
+          <p><code class="inline">range(7)</code> → each side becomes 7 blocks long instead of 5. The square gets bigger.</p>
+          <p><code class="inline">range(3)</code> → the Agent only walks 3 sides and stops — you get a <em>triangle-ish</em> open shape, not a closed square. (You need 4 sides for a square.)</p>
+        </div>
+      </details>
+
+      <p>Run the <code class="inline">square</code> command and watch the Agent draw the outline of a 5×5 square. Try changing the numbers and see what shapes you can make.</p>
+    </div>
+
+    <!-- CHALLENGE -->
+    <div class="step">
+      <h2><span class="tag challenge">CHALLENGE</span> Build Something with Repetition</h2>
+      <p>Now create an <strong>original</strong> Agent program that uses at least one loop. Pick one of the options below — or invent your own.</p>
+
+      <div class="options">
+        <div class="opt">
+          <h4>Option A — Long Path</h4>
+          <p>A straight path or trail of at least 15 blocks. Try using something other than stone (e.g., <code class="inline">DIRT</code>, <code class="inline">PLANKS_OAK</code>, or <code class="inline">GLASS</code>).</p>
+        </div>
+        <div class="opt">
+          <h4>Option B — Wall or Tower</h4>
+          <p>Use <code class="inline">UP</code> instead of <code class="inline">DOWN</code> with <code class="inline">agent.place</code>, or use a nested loop to stack rows. Build a wall of stone.</p>
+        </div>
+        <div class="opt">
+          <h4>Option C — Custom Shape</h4>
+          <p>Use a nested loop to draw a rectangle, an open box, a staircase, or any pattern with repeating sections.</p>
+        </div>
+      </div>
+
+      <h3>Minimum requirements</h3>
+      <ul class="tight">
+        <li>Your program starts with a chat command.</li>
+        <li>Your program uses at least one <code class="inline">for</code> loop.</li>
+        <li>The Agent places at least 10 blocks in total.</li>
+        <li>You changed the loop count at least once and can describe what changed.</li>
+        <li>The final program is different from the starter examples on this page.</li>
+      </ul>
+
+      <h3>Stretch goals</h3>
+      <ul class="tight">
+        <li>Use a <strong>nested loop</strong> to build a 2D shape (a square outline, a rectangle, or a filled grid).</li>
+        <li>Use multiple block types — load slots 2 and 3 with different materials and switch which slot you place from.</li>
+        <li>Add a <code class="inline">#</code> comment above each loop explaining what it does.</li>
+        <li>Make a recognizable structure: a tic-tac-toe grid, a chess-board pattern, a plus sign, a letter of the alphabet.</li>
+      </ul>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit">
+      <h2><span class="tag submit">SUBMIT</span> Turn In Your Work</h2>
+      <p>When you've finished the challenge, follow your teacher's instructions for submission. Most assignments will ask for <strong>three</strong> items:</p>
+      <ol>
+        <li><strong>Screenshot of your code</strong> in the MakeCode editor. Make sure your <code>for</code> loop is visible.</li>
+        <li><strong>Screenshot of the result in Minecraft</strong> — the path, wall, square, or pattern your Agent built.</li>
+        <li><strong>Short written reflection.</strong> Answer all four in 1–2 sentences each:
+          <ul>
+            <li>What does your loop repeat, and how many times?</li>
+            <li>Which number did you change to make the result bigger or smaller? What happened?</li>
+            <li>Describe one bug you ran into — what was wrong, and how did you figure it out?</li>
+            <li>How would this program look if you wrote it <em>without</em> a loop?</li>
+          </ul>
+        </li>
+      </ol>
+
+      <div class="callout warn">
+        <strong>Important:</strong> The reflection is often weighted heavily. Show that you understand <em>why</em> the loop did what it did — not just that it worked.
+      </div>
+    </div>
+
+    <!-- DONE -->
+    <div class="step">
+      <h2>When You're Done</h2>
+      <ul class="tight">
+        <li>Trade computers with a classmate and run each other's programs.</li>
+        <li>Try a <strong>3D nested loop</strong>: a loop inside a loop inside a loop to fill a cube.</li>
+        <li>Try using <code class="inline">agent.move(UP, 1)</code> at the end of each row to build a tall wall instead of a flat one.</li>
+        <li>Explore the other Agent commands in MakeCode (<code class="inline">agent.detect</code>, <code class="inline">agent.attack</code>).</li>
+      </ul>
+    </div>
+
+    <a href="../" class="back">← Back to Minecraft Lessons</a>
+  </div>
+</div>
+
+<script src="../../lesson.js"></script>
+</body>
+</html>

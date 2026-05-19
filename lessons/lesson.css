@@ -1,0 +1,690 @@
+/* ─────────────────────────────────────────────
+   Chapin CS · Shared lesson stylesheet
+   Light, readable lesson card on the chapincs
+   dark background, with the same chromatic /
+   mono accents used on the recruitment site.
+   ───────────────────────────────────────────── */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --bg: #07060f;
+  --card: #ffffff;
+  --card-soft: #f7f8fb;
+  --ink: #1a1c25;
+  --ink-soft: #44485a;
+  --rule: #e6e8ef;
+
+  --cyan: #00b8d4;
+  --cyan-bg: #e6f9fc;
+  --pink: #ff006e;
+  --pink-bg: #ffe6f0;
+  --green: #06b888;
+  --green-bg: #e3f7ef;
+  --amber: #b86000;
+  --amber-bg: #fff4dc;
+  --red: #c1272d;
+  --red-bg: #fdebec;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.55;
+  min-height: 100vh;
+}
+
+a { color: var(--cyan); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.mono {
+  font-family: 'Courier New', 'Menlo', monospace;
+}
+
+/* Chromatic chapincs-style text (used sparingly on lesson H1) */
+.chrom {
+  text-shadow:
+    -2px 0 0 rgba(255, 0, 60, 0.85),
+     2px 0 0 rgba(0, 217, 255, 0.85);
+}
+
+/* ─── breadcrumb header (above the white card) ─── */
+.crumb {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 22px 24px 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.7);
+  text-transform: uppercase;
+}
+.crumb a { color: rgba(255,255,255,0.7); }
+.crumb a:hover { color: #00d9ff; text-decoration: none; }
+.crumb .sep { color: rgba(255,255,255,0.3); margin: 0 8px; }
+
+/* ─── lesson page container ─── */
+.page {
+  max-width: 1040px;
+  margin: 0 auto 48px;
+  padding: 0 24px;
+}
+
+/* The white lesson card */
+.card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 40px 44px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 1px rgba(255,255,255,0.08);
+}
+@media (max-width: 720px) {
+  .card { padding: 28px 22px; }
+}
+
+/* ─── lesson header (inside the card) ─── */
+.lesson-head {
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 22px;
+  margin-bottom: 24px;
+}
+.lesson-head .eyebrow {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--cyan);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.lesson-head h1 {
+  font-family: 'Arial Black', 'Impact', sans-serif;
+  font-size: clamp(28px, 4.2vw, 44px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.lesson-head .subtitle {
+  color: var(--ink-soft);
+  font-size: 1rem;
+}
+
+/* ─── essential question card ─── */
+.eq {
+  background: var(--bg);
+  color: #fff;
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin-bottom: 22px;
+  position: relative;
+  overflow: hidden;
+}
+.eq::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0; width: 4px;
+  background: linear-gradient(180deg, var(--pink), var(--cyan));
+}
+.eq .label {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #00d9ff;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.eq p {
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* ─── goals card ─── */
+.goals {
+  background: var(--card-soft);
+  border-left: 4px solid var(--green);
+  border-radius: 6px;
+  padding: 18px 22px;
+  margin-bottom: 22px;
+}
+.goals h2 {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+.goals ul { padding-left: 22px; }
+.goals li { margin-bottom: 4px; }
+
+/* ─── setup banner (every-lesson reminder) ─── */
+.setup-banner {
+  background: var(--bg);
+  color: #fff;
+  border-radius: 10px;
+  padding: 22px 26px;
+  margin-bottom: 26px;
+  position: relative;
+}
+.setup-banner::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--cyan);
+  border-radius: 10px 0 0 10px;
+}
+.setup-banner .badge {
+  position: absolute;
+  top: -10px;
+  right: 18px;
+  background: #ffc107;
+  color: #14365a;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+.setup-banner h3 {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+  color: #fff;
+}
+.setup-banner p { color: rgba(255,255,255,0.92); margin-bottom: 14px; }
+.setup-banner .cta {
+  display: inline-block;
+  background: #00d9ff;
+  color: #000;
+  font-weight: 700;
+  padding: 9px 18px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+.setup-banner .cta:hover { background: #fff; text-decoration: none; }
+
+/* ─── numbered step section ─── */
+.step {
+  background: var(--card-soft);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 24px 26px;
+  margin-bottom: 20px;
+}
+.step h2 {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.step h3 {
+  font-size: 1rem;
+  margin: 18px 0 10px;
+  color: var(--ink);
+  font-weight: 700;
+}
+.step p, .step li { line-height: 1.6; }
+.step p { margin-bottom: 10px; }
+.step ol, .step ul { padding-left: 22px; margin-bottom: 12px; }
+.step ol li, .step ul li { margin-bottom: 6px; }
+
+/* step tag — monospace, // STEP_01 style */
+.tag {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  background: var(--cyan);
+  color: #00232a;
+}
+.tag.warm    { background: #6c757d; color: #fff; }
+.tag.recap   { background: var(--amber-bg); color: var(--amber); }
+.tag.build   { background: var(--green); color: #03331f; }
+.tag.challenge { background: var(--amber-bg); color: var(--amber); }
+.tag.submit  { background: var(--pink); color: #fff; }
+
+/* ─── vocab grid ─── */
+.vocab {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+.vocab .item {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 12px 14px;
+}
+.vocab .item strong {
+  display: block;
+  color: var(--cyan);
+  margin-bottom: 4px;
+  font-size: 0.95rem;
+}
+.vocab .item span {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+/* ─── callouts ─── */
+.callout {
+  border-radius: 6px;
+  padding: 12px 18px;
+  margin: 14px 0;
+  border-left: 4px solid;
+}
+.callout strong { font-weight: 700; }
+.callout.key   { background: var(--amber-bg); border-color: #ffc107; color: var(--ink); }
+.callout.key strong { color: var(--amber); }
+.callout.tip   { background: var(--green-bg); border-color: var(--green); color: var(--ink); }
+.callout.tip strong { color: #146c43; }
+.callout.warn  { background: var(--red-bg); border-color: var(--red); color: var(--ink); }
+.callout.warn strong { color: #842029; }
+.callout.step-back { background: #fff4dc; border-color: var(--amber); }
+.callout.step-back strong { color: var(--amber); }
+.callout.check {
+  background: #fff;
+  border: 2px solid var(--cyan-bg);
+  border-left: 4px solid var(--cyan);
+  border-radius: 6px;
+  padding: 12px 18px;
+}
+.callout.check h4 {
+  color: var(--cyan);
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+/* ─── predict (collapsible reveal) ─── */
+details.predict {
+  background: #fff;
+  border: 2px dashed #ffc107;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 14px 0;
+}
+details.predict summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--amber);
+  list-style: none;
+}
+details.predict summary::before {
+  content: '▸ ';
+  display: inline-block;
+  transition: transform 0.15s;
+}
+details.predict[open] summary::before {
+  transform: rotate(90deg);
+}
+details.predict[open] summary { margin-bottom: 8px; }
+details.predict .answer {
+  padding-top: 8px;
+  border-top: 1px solid #f0e3b8;
+  margin-top: 8px;
+  color: var(--ink);
+}
+details.predict .answer p { margin-bottom: 8px; }
+details.predict .answer p:last-child { margin-bottom: 0; }
+
+/* ─── keyboard / inline code ─── */
+kbd {
+  background: #2c2f3a;
+  color: #fff;
+  border-radius: 3px;
+  padding: 2px 7px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85em;
+  border: 1px solid #1a1c25;
+  box-shadow: 0 1px 0 #555;
+}
+code.inline, p > code, li > code, td > code, h3 > code, h4 > code, summary > code {
+  background: #f0f2f7;
+  color: var(--pink);
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.92em;
+}
+
+/* ─── code blocks ─── */
+.code-wrap { position: relative; margin: 12px 0; }
+.code-block {
+  background: #0d0f17;
+  color: #e8e6e3;
+  padding: 16px 18px;
+  border-radius: 8px;
+  font-family: 'Courier New', 'Menlo', monospace;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  overflow-x: auto;
+  white-space: pre;
+  border: 1px solid #1a1d28;
+}
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  text-transform: uppercase;
+}
+.copy-btn:hover { background: var(--cyan); color: #00232a; }
+.copy-btn.copied { background: var(--green); color: #03331f; }
+
+/* ─── side-by-side compare cards (before/after) ─── */
+.compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  margin: 14px 0;
+}
+.compare .col {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 14px;
+}
+.compare .col h4 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.compare .col.bad  { border-color: #f1aeb5; }
+.compare .col.bad h4  { color: var(--red); }
+.compare .col.good { border-color: #a3cfbb; }
+.compare .col.good h4 { color: #146c43; }
+.compare .col pre {
+  background: #0d0f17;
+  color: #e8e6e3;
+  padding: 12px;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  margin: 0;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* ─── 3-version label cards (slow / better / best) ─── */
+.versions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.versions .v {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 14px;
+}
+.versions .v .vtag {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.versions .v.slow   { border-color: #f5d18a; }
+.versions .v.slow   .vtag { background: #fff3cd; color: var(--amber); }
+.versions .v.better { border-color: #b3d9ff; }
+.versions .v.better .vtag { background: #d4e6ff; color: #0a58ca; }
+.versions .v.best   { border-color: #a3cfbb; }
+.versions .v.best   .vtag { background: var(--green-bg); color: #146c43; }
+
+/* ─── coord-style tables ─── */
+table.coord {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.95rem;
+}
+table.coord th {
+  background: var(--bg);
+  color: #fff;
+  padding: 9px 11px;
+  text-align: left;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+table.coord td {
+  padding: 9px 11px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+table.coord tr:last-child td { border-bottom: none; }
+table.coord code {
+  background: #f0f2f7;
+  color: var(--pink);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+}
+
+/* ─── recap card (looking-back / what-you-know strip) ─── */
+.recap {
+  background: var(--card-soft);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 22px;
+}
+.recap h3 {
+  color: var(--cyan);
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.recap .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+.recap .grid .item {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+}
+.recap .grid .item strong {
+  display: block;
+  color: var(--cyan);
+  margin-bottom: 2px;
+  font-size: 0.92rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ─── challenge option cards ─── */
+.options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 12px 0;
+}
+.options .opt {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--amber);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.options .opt h4 {
+  margin-bottom: 6px;
+  color: var(--amber);
+  font-size: 1rem;
+}
+.options .opt p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+
+/* ─── submit card ─── */
+.submit {
+  background: var(--pink-bg);
+  border: 2px solid #f1aeb5;
+  border-radius: 10px;
+  padding: 22px 26px;
+  margin-top: 22px;
+}
+.submit h2 {
+  color: var(--pink);
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.submit ol { padding-left: 22px; }
+.submit ol > li { margin-bottom: 8px; }
+
+/* ─── back link ─── */
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card-soft);
+  color: var(--ink);
+  padding: 9px 16px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: 1px solid var(--rule);
+  margin-bottom: 18px;
+}
+.back:hover { background: var(--ink); color: #fff; text-decoration: none; }
+
+/* ─── lesson index grid (landing page) ─── */
+.lesson-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+.lesson-grid a.card-link {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  min-height: 220px;
+}
+.lesson-grid a.card-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(0,0,0,0.12);
+  border-color: var(--cyan);
+  text-decoration: none;
+}
+.lesson-grid .lnum {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: var(--cyan);
+  color: #00232a;
+  align-self: flex-start;
+  margin-bottom: 12px;
+}
+.lesson-grid .lnum.setup { background: var(--pink); color: #fff; }
+.lesson-grid h3 {
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+  font-weight: 800;
+}
+.lesson-grid .sub {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin-bottom: 10px;
+}
+.lesson-grid p {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  flex-grow: 1;
+  margin-bottom: 10px;
+}
+.lesson-grid .more {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: var(--cyan);
+  text-transform: uppercase;
+}
+.lesson-grid .placeholder {
+  background: transparent;
+  border: 2px dashed var(--rule);
+  border-radius: 12px;
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgba(255,255,255,0.4);
+  min-height: 220px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ─── intro card on the index ─── */
+.intro {
+  background: var(--card-soft);
+  border-left: 4px solid var(--cyan);
+  border-radius: 6px;
+  padding: 18px 22px;
+  margin-bottom: 20px;
+}
+.intro h2 {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+.intro p { margin-bottom: 8px; }
+.intro p:last-child { margin-bottom: 0; }
+
+/* ─── shared utilities ─── */
+.muted { color: var(--ink-soft); font-size: 0.88rem; }
+ul.tight li, ol.tight li { margin-bottom: 4px; }

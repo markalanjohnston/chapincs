@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 1 — Controlling the Agent · Minecraft · Chapin CS</title>
+<link rel="stylesheet" href="../../lesson.css">
+</head>
+<body>
+
+<div class="crumb mono">
+  <a href="../../../">Chapin CS</a>
+  <span class="sep">/</span>
+  <a href="../../">Lessons</a>
+  <span class="sep">/</span>
+  <a href="../">Minecraft</a>
+  <span class="sep">/</span>
+  <span>Lesson 1</span>
+</div>
+
+<div class="page">
+  <div class="card">
+
+    <a href="../" class="back">← Back to Minecraft Lessons</a>
+
+    <div class="lesson-head">
+      <div class="eyebrow">// LESSON_1 · SELF-PACED</div>
+      <h1 class="chrom">Controlling the Agent with Ordered Instructions</h1>
+      <p class="subtitle">Sequencing, events, and Agent movement in Minecraft MakeCode.</p>
+    </div>
+
+    <div class="eq">
+      <div class="label">// ESSENTIAL_QUESTION</div>
+      <p>How does the order of instructions affect what a computer program does?</p>
+    </div>
+
+    <div class="goals">
+      <h2>By the end of this lesson, I will...</h2>
+      <ul>
+        <li>Explain why the <strong>order</strong> of code matters.</li>
+        <li>Use an <strong>event</strong> (a chat command) to start a program.</li>
+        <li>Write a sequence of commands to move the Minecraft Agent.</li>
+        <li>Predict what a short program will do <em>before</em> running it.</li>
+        <li>Debug a program when the Agent does not behave as expected.</li>
+        <li>Modify starter code to build something original.</li>
+      </ul>
+    </div>
+
+    <div class="setup-banner">
+      <span class="badge">Every Lesson</span>
+      <h3>Start here first — every single time</h3>
+      <p>Every Minecraft lesson begins with a brand-new world. <strong>Do not skip this.</strong> Open Lesson 0, follow the setup steps, then come back here and continue with Step 1.</p>
+      <a href="../lesson0/" class="cta">Open Lesson 0 — World Setup →</a>
+    </div>
+
+    <!-- STEP 1: Warm-up -->
+    <div class="step">
+      <h2><span class="tag warm">STEP 1</span> Warm-up: Computers Are Literal</h2>
+      <p>Read this set of instructions for making a peanut butter sandwich:</p>
+      <ol>
+        <li>Put the peanut butter on the bread.</li>
+        <li>Eat the sandwich.</li>
+        <li>Open the jar.</li>
+        <li>Get a knife.</li>
+      </ol>
+
+      <details class="predict">
+        <summary>Think about it first — what is wrong with this set of instructions?</summary>
+        <div class="answer">
+          <p>Each step is technically a real action, but the <strong>order is wrong</strong>. You cannot put peanut butter on bread before opening the jar, and you cannot eat the sandwich before you've made it. A human reading this might mentally rearrange the steps. A <strong>computer cannot</strong>.</p>
+          <p><strong>The big idea:</strong> Computers do not understand what you <em>meant</em>. They only do what you <em>wrote</em>, in the order you wrote it. This ordered set of instructions is called a <strong>sequence</strong>.</p>
+        </div>
+      </details>
+
+      <h3>Today's Vocabulary</h3>
+      <div class="vocab">
+        <div class="item"><strong>Sequence</strong><span>The order in which instructions run.</span></div>
+        <div class="item"><strong>Event</strong><span>Something that starts code, like typing a chat command.</span></div>
+        <div class="item"><strong>Agent</strong><span>A programmable helper in Minecraft Education.</span></div>
+        <div class="item"><strong>Debugging</strong><span>Finding and fixing mistakes in code.</span></div>
+        <div class="item"><strong>Algorithm</strong><span>A step-by-step set of instructions for solving a problem.</span></div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Open MakeCode -->
+    <div class="step">
+      <h2><span class="tag">STEP 2</span> Open MakeCode</h2>
+      <p>You should already be in your fresh flat world from <a href="../lesson0/">Lesson 0</a>. If not, go back and complete Lesson 0 first.</p>
+      <ol>
+        <li>In the Minecraft world, press <kbd>C</kbd> on your keyboard to open the <strong>Code Builder</strong>.</li>
+        <li>In the Code Builder window, choose <strong>MakeCode</strong>.</li>
+        <li>Click <strong>New Project</strong> and give it a name — <code class="inline">Lesson 1 - Agent</code> works.</li>
+        <li>Click <strong>Code options</strong>, then select <strong>Python Only</strong>.</li>
+        <li>Click <strong>Create</strong>. The project will open straight into the Python editor (no blocks view to switch from).</li>
+        <li>In the toolbox on the left, find the <strong>Agent</strong> category. You should see commands like <code class="inline">agent.move</code>, <code class="inline">agent.turn</code>, and <code class="inline">agent.place</code>.</li>
+      </ol>
+
+      <div class="callout tip">
+        <strong>Heads up:</strong> Because you chose <strong>Python Only</strong> at project creation, the editor is already in Python. You will not need to switch language modes. All of the code samples below are in Python.
+      </div>
+
+      <div class="callout check">
+        <h4>✓ Check yourself</h4>
+        <p>You have Minecraft open, the MakeCode window is on your screen, and you can see Agent blocks in the toolbox. If yes — move on. If no — ask a neighbor or your teacher.</p>
+      </div>
+    </div>
+
+    <!-- STEP 3: Starter -->
+    <div class="step">
+      <h2><span class="tag">STEP 3</span> Your First Agent Program</h2>
+      <p>Your project is already in Python from Step 2. <strong>Delete</strong> anything that's already in the editor. Then copy the code below and paste it in:</p>
+
+      <div class="code-wrap">
+        <button class="copy-btn" data-target="starter">Copy</button>
+<pre class="code-block" id="starter">def on_chat():
+    agent.set_item(STONE, 1, 1)
+    agent.move(FORWARD, 5)
+    agent.turn(LEFT_TURN)
+    agent.move(FORWARD, 5)
+    agent.destroy(DOWN)
+    agent.place(DOWN)
+player.on_chat("road", on_chat)</pre>
+      </div>
+
+      <h3>What this program says</h3>
+      <ul class="tight">
+        <li><code class="inline">def on_chat():</code> — defines a <strong>function</strong> named <code class="inline">on_chat</code> that holds the instructions for the Agent. The indented lines below it belong to this function.</li>
+        <li><code class="inline">agent.set_item(STONE, 1, 1)</code> — <em>loads the Agent's inventory</em>. The Agent can't place a block out of thin air; you have to tell it which block to place. This puts 1 <code class="inline">STONE</code> in slot 1 of the Agent's inventory.</li>
+        <li><code class="inline">agent.move(FORWARD, 5)</code> — the Agent moves forward 5 blocks.</li>
+        <li><code class="inline">agent.turn(LEFT_TURN)</code> — the Agent turns left.</li>
+        <li><code class="inline">agent.move(FORWARD, 5)</code> — the Agent moves forward 5 more blocks.</li>
+        <li><code class="inline">agent.destroy(DOWN)</code> — <em>breaks the block underneath the Agent</em>. We have to clear that space first, because the Agent can't place a new block where one already exists.</li>
+        <li><code class="inline">agent.place(DOWN)</code> — the Agent places a block below itself <em>from</em> its inventory (the stone you loaded above).</li>
+        <li><code class="inline">player.on_chat("road", on_chat)</code> — <em>this is the <strong>event</strong></em>. It tells Minecraft to run <code class="inline">on_chat</code> whenever the player types <code class="inline">road</code> in chat.</li>
+      </ul>
+
+      <div class="callout key">
+        <strong>Two place-block gotchas:</strong>
+        <ol style="margin: 6px 0 0 22px; padding: 0;">
+          <li>If you skip <code class="inline">agent.set_item(...)</code>, the Agent has nothing in its hand and <code class="inline">place</code> silently does nothing.</li>
+          <li>If you skip <code class="inline">agent.destroy(DOWN)</code>, the Agent tries to place a block where one already exists (the ground), so <code class="inline">place</code> silently does nothing.</li>
+        </ol>
+        Both are common "it ran but didn't work" bugs — the program looks fine, but no block appears.
+      </div>
+
+      <details class="predict">
+        <summary>Predict before you run it — what shape will the Agent's path make in the world?</summary>
+        <div class="answer">
+          <p>The Agent will move forward 5 blocks, turn left, and move forward 5 more blocks — an <strong>L-shape</strong> with a corner where it turned. Then it will place one block underneath itself at the end of the path.</p>
+        </div>
+      </details>
+
+      <h3>Run it</h3>
+      <ol>
+        <li>Switch back to your Minecraft world.</li>
+        <li>Open the chat window (press <kbd>T</kbd>) and type <code class="inline">road</code>, then press Enter.</li>
+        <li>Watch the Agent move. Did it do what you predicted?</li>
+      </ol>
+
+      <div class="callout key">
+        <strong>If the Agent doesn't move at all:</strong> make sure the Agent is somewhere in the world (you can summon it by typing <code class="inline">/agent</code> in chat). If your chat command does nothing, double-check that the word in <code class="inline">player.on_chat("road", on_chat)</code> matches exactly what you typed.
+      </div>
+    </div>
+
+    <!-- STEP 4: Modify -->
+    <div class="step">
+      <h2><span class="tag">STEP 4</span> Modify the Starter Code</h2>
+      <p>Now make the program your own. Change the code in <strong>three</strong> ways. Run it after each change so you can see what each edit does.</p>
+
+      <h3>Required modifications</h3>
+      <ol>
+        <li>Change <strong>how far</strong> the Agent moves on at least one line. (Change a <code class="inline">5</code> to something else.)</li>
+        <li>Change <strong>the turn direction</strong> from <code class="inline">LEFT_TURN</code> to <code class="inline">RIGHT_TURN</code> — or the other way around.</li>
+        <li>Add <strong>at least two more</strong> movement commands to make the path longer or more interesting.</li>
+      </ol>
+
+      <div class="callout tip">
+        <strong>Pro tip:</strong> Change <strong>one thing at a time</strong> and test after every change. If your program breaks, you'll know exactly which edit caused it. This is how real programmers debug.
+      </div>
+
+      <h3>Need an idea?</h3>
+      <p>Here is one version of what your modified code might look like (don't just copy it — make yours different):</p>
+
+      <div class="code-wrap">
+        <button class="copy-btn" data-target="modExample">Copy</button>
+<pre class="code-block" id="modExample">def on_chat():
+    agent.move(FORWARD, 4)
+    agent.turn(RIGHT_TURN)
+    agent.move(FORWARD, 6)
+    agent.turn(LEFT_TURN)
+    agent.move(FORWARD, 3)
+player.on_chat("path", on_chat)</pre>
+      </div>
+    </div>
+
+    <!-- STEP 5: Debugging -->
+    <div class="step">
+      <h2><span class="tag">STEP 5</span> Debugging: Order Matters</h2>
+      <p>Read the program below. It's supposed to make the Agent move forward, <em>turn</em>, and then continue along a new direction.</p>
+
+      <div class="code-wrap">
+        <button class="copy-btn" data-target="brokenCode">Copy</button>
+<pre class="code-block" id="brokenCode">def on_chat():
+    agent.move(FORWARD, 5)
+    agent.move(FORWARD, 5)
+    agent.turn(LEFT_TURN)
+    agent.move(FORWARD, 5)
+player.on_chat("turn", on_chat)</pre>
+      </div>
+
+      <details class="predict">
+        <summary>Predict: when this runs, the Agent doesn't turn until late. Why? Which line would you move?</summary>
+        <div class="answer">
+          <p>The Agent moves forward <em>10 blocks total</em> before it ever turns — because both <code class="inline">agent.move(FORWARD, 5)</code> lines run <strong>before</strong> the turn. The turn is in the wrong position in the sequence.</p>
+          <p>To make it turn between the two long moves, swap the order so the turn happens after the first move:</p>
+        </div>
+      </details>
+
+      <p>Try the broken version first. Then try the fixed version below to compare:</p>
+
+      <div class="code-wrap">
+        <button class="copy-btn" data-target="fixedCode">Copy</button>
+<pre class="code-block" id="fixedCode">def on_chat():
+    agent.move(FORWARD, 5)
+    agent.turn(LEFT_TURN)
+    agent.move(FORWARD, 5)
+    agent.move(FORWARD, 5)
+player.on_chat("turn", on_chat)</pre>
+      </div>
+
+      <div class="callout key">
+        <strong>The big idea:</strong> Debugging is <em>not</em> guessing randomly. Debugging means <strong>comparing what you expected to what actually happened</strong>, finding the line that caused the difference, and changing only that.
+      </div>
+    </div>
+
+    <!-- CHALLENGE -->
+    <div class="step">
+      <h2><span class="tag challenge">CHALLENGE</span> Build Something of Your Own</h2>
+      <p>Now create an <strong>original</strong> Agent program. Pick one of the three options below — or invent your own.</p>
+
+      <div class="options">
+        <div class="opt">
+          <h4>Option A — Maze Entrance</h4>
+          <p>Make a winding path that looks like the start of a maze. Include corners and at least two turns.</p>
+        </div>
+        <div class="opt">
+          <h4>Option B — Obstacle Course</h4>
+          <p>Move the Agent through an obstacle course path. Add stairs, corners, or zig-zags.</p>
+        </div>
+        <div class="opt">
+          <h4>Option C — Building Outline</h4>
+          <p>Use the Agent to trace the outline of a square, rectangle, or small building. Bonus: place blocks as it goes.</p>
+        </div>
+      </div>
+
+      <h3>Minimum requirements</h3>
+      <ul class="tight">
+        <li>Your program starts with a chat command (an event).</li>
+        <li>The Agent moves at least <strong>5 times</strong>.</li>
+        <li>The Agent turns at least <strong>2 times</strong>.</li>
+        <li>Your code is <strong>different</strong> from the starter code — not just copied.</li>
+        <li>You can explain what your program does in one sentence.</li>
+      </ul>
+
+      <h3>Stretch goals (try if you finish early)</h3>
+      <ul class="tight">
+        <li>Use <code class="inline">agent.destroy(DOWN)</code> then <code class="inline">agent.place(DOWN)</code> after each move to leave a trail of stone blocks. If you want a long trail, raise the stone quantity at the top — e.g., <code class="inline">agent.set_item(STONE, 64, 1)</code> for a full stack.</li>
+        <li>Make a shape that another student would recognize.</li>
+        <li>Add <strong>comments</strong> (lines starting with <code class="inline">#</code>) above each section of your code to explain what it does.</li>
+      </ul>
+
+      <h3>Example with comments</h3>
+      <div class="code-wrap">
+        <button class="copy-btn" data-target="commentedCode">Copy</button>
+<pre class="code-block" id="commentedCode">def on_chat():
+    # First side of the path
+    agent.move(FORWARD, 5)
+
+    # Turn toward the second side
+    agent.turn(RIGHT_TURN)
+    agent.move(FORWARD, 3)
+
+    # Turn again to make the path more interesting
+    agent.turn(LEFT_TURN)
+    agent.move(FORWARD, 4)
+player.on_chat("maze", on_chat)</pre>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit">
+      <h2><span class="tag submit">SUBMIT</span> Turn In Your Work</h2>
+      <p>When you've finished the challenge, follow your teacher's instructions for submission. Most assignments will ask for <strong>three</strong> items:</p>
+      <ol>
+        <li><strong>Screenshot of your code</strong> in the MakeCode editor.<br>
+          <span class="muted">Use <kbd>Windows</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> (Snipping Tool) or your normal screenshot method. Capture the whole code block.</span>
+        </li>
+        <li><strong>Screenshot of the result in Minecraft</strong> — your Agent's path, build, or maze entrance.<br>
+          <span class="muted">Inside Minecraft, press <kbd>F2</kbd> to take a screenshot, or use the regular Windows screenshot shortcut.</span>
+        </li>
+        <li><strong>Short written reflection.</strong> Answer all four questions in 1–2 sentences each:
+          <ul>
+            <li>What did your program do?</li>
+            <li>Which line of code was the most important to your result?</li>
+            <li>Describe one bug you fixed or one thing that didn't work the first time.</li>
+            <li>How did changing the <em>order</em> of instructions change the result?</li>
+          </ul>
+        </li>
+      </ol>
+
+      <div class="callout warn">
+        <strong>Important:</strong> The reflection is often weighted heavily. "It worked" is not a reflection — show that you understand <em>why</em> it worked.
+      </div>
+    </div>
+
+    <!-- DONE -->
+    <div class="step">
+      <h2>When You're Done</h2>
+      <p>If you finish early, here are productive ways to spend the rest of class:</p>
+      <ul class="tight">
+        <li>Trade computers with a classmate and run each other's programs.</li>
+        <li>Try one of the <strong>stretch goals</strong> above.</li>
+        <li>Explore the other Agent commands in MakeCode (<code class="inline">agent.destroy</code>, <code class="inline">agent.attack</code>, <code class="inline">agent.detect</code>).</li>
+        <li>Open a Minecraft Hour of Code tutorial and try the next concept on your own.</li>
+      </ul>
+    </div>
+
+    <a href="../" class="back">← Back to Minecraft Lessons</a>
+  </div>
+</div>
+
+<script src="../../lesson.js"></script>
+
+</body>
+</html>
